@@ -11,6 +11,7 @@ import argparse
 
 from flask import Flask
 from brother_ql.models import ALL_MODELS
+from brother_ql.labels import ALL_LABELS
 
 from . import fonts
 from config import Config
@@ -27,6 +28,11 @@ def create_app(config_class=Config) -> Flask:
     app.logger.setLevel(app.config.get('LOG_LEVEL', 'INFO'))
 
     FONTS = init_fonts(app)
+
+    if 'LABEL_SHOW_ONLY' not in app.config or not app.config['LABEL_SHOW_ONLY']:
+        app.config['LABEL_SHOW_ONLY'] = [label.identifier for label in ALL_LABELS]
+    else:
+        app.config['LABEL_SHOW_ONLY'] = app.config['LABEL_SHOW_ONLY'].split(',')
 
     # Only parse command-line arguments if not running under pytest
     if not any('pytest' in arg for arg in sys.argv[0:1]):

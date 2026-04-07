@@ -25,13 +25,13 @@ def handle_value_error(e):
 
 @bp.route('/')
 def index_simple():
-    if current_app.config['LABEL_DEFAULT_SIZE'] not in current_app.config['LABEL_SHOW_ONLY'].split(','):
+    if current_app.config['LABEL_DEFAULT_SIZE'] not in current_app.config['LABEL_SHOW_ONLY']:
         current_app.logger.warning("LABEL_DEFAULT_SIZE is not in LABEL_SHOW_ONLY, defaulting to the first available label size.")
-        current_app.config['LABEL_DEFAULT_SIZE'] = current_app.config['LABEL_SHOW_ONLY'].split(',')[0]
+        current_app.config['LABEL_DEFAULT_SIZE'] = current_app.config['LABEL_SHOW_ONLY'][0]
         
     label_sizes = [
         (label.identifier, label.name, label.form_factor == FormFactor.ROUND_DIE_CUT, label.tape_size)
-        for label in ALL_LABELS if label.identifier in current_app.config['LABEL_SHOW_ONLY'].split(',')
+        for label in ALL_LABELS if label.identifier in current_app.config['LABEL_SHOW_ONLY']
     ]
     return render_template(
         'labeldesigner_simple.html',
@@ -56,13 +56,13 @@ def index_simple():
 
 @bp.route('/complex')
 def index_complex():
-    if current_app.config['LABEL_DEFAULT_SIZE'] not in current_app.config['LABEL_SHOW_ONLY'].split(','):
+    if current_app.config['LABEL_DEFAULT_SIZE'] not in current_app.config['LABEL_SHOW_ONLY']:
         current_app.logger.warning("LABEL_DEFAULT_SIZE is not in LABEL_SHOW_ONLY, defaulting to the first available label size.")
-        current_app.config['LABEL_DEFAULT_SIZE'] = current_app.config['LABEL_SHOW_ONLY'].split(',')[0]
+        current_app.config['LABEL_DEFAULT_SIZE'] = current_app.config['LABEL_SHOW_ONLY'][0]
 
     label_sizes = [
         (label.identifier, label.name, label.form_factor == FormFactor.ROUND_DIE_CUT, label.tape_size)
-        for label in ALL_LABELS if label.identifier in current_app.config['LABEL_SHOW_ONLY'].split(',')
+        for label in ALL_LABELS if label.identifier in current_app.config['LABEL_SHOW_ONLY']
     ]
     return render_template(
         'labeldesigner_complex.html',

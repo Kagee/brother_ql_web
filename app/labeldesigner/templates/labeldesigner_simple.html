@@ -48,24 +48,17 @@
 
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingFontSettings">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordionFontSettings" aria-expanded="true" aria-controls="accordionFontSettings">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionFontSettings" aria-expanded="true" aria-controls="accordionFontSettings">
                             <span class="fas fa-font" aria-hidden="true"></span> Font Settings
                         </button>
                     </h2>
-                    <div id="accordionFontSettings" class="accordion-collapse collapse show" aria-labelledby="headingFontSettings" data-bs-parent="#accordion">
+                    <div id="accordionFontSettings" class="accordion-collapse collapse" aria-labelledby="headingFontSettings" data-bs-parent="#accordion">
                         <div class="accordion-body">
                             <div id="fontSettingsLineSelector">
                                 <label for="lineSelect" style="margin-bottom: 0">Select Line:</label>
                                 <select class="form-control form-select" id="lineSelect">
                                 </select>
                             </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" data-default="1" id="sync_font_settings" checked>
-                                <label class="form-check-label" for="sync_font_settings">
-                                    Use same font for all lines
-                                </label>
-                            </div>
-
                             <div id="fontSettingsContainer">
                                 <div id="fontSetting">
                                     <label for="font" style="margin-bottom: 0">Font:</label>
