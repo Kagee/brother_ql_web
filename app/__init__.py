@@ -32,11 +32,8 @@ def create_app(config_class=Config) -> Flask:
     if not any('pytest' in arg for arg in sys.argv[0:1]):
         parse_args(app)
 
-    from app.main import bp as main_bp
-    app.register_blueprint(main_bp)
-
     from app.labeldesigner import bp as labeldesigner_bp
-    app.register_blueprint(labeldesigner_bp, url_prefix='/labeldesigner')
+    app.register_blueprint(labeldesigner_bp)
 
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
