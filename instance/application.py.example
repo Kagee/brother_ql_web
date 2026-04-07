@@ -1,0 +1,8 @@
+# Example file for overriding config
+import logging
+DEBUG = False
+LOG_LEVEL = logging.WARNING
+PRINTER_MODEL = 'QL-810W'
+PRINTER_PRINTER = 'file:///dev/usb/lp0'
+LABEL_DEFAULT_SIZE = '62red'
+LABEL_SHOW_ONLY = '62,62red'

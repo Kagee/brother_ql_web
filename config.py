@@ -19,7 +19,10 @@ class Config(object):
     PRINTER_PRINTER = '?'
 
     LABEL_DEFAULT_ORIENTATION = 'standard'
+    # Use 32 mm endless, black-only as standard
     LABEL_DEFAULT_SIZE = '62'
+    # empty/missing means all labels are shown
+    LABEL_SHOW_ONLY = ''  
     LABEL_DEFAULT_FONT_SIZE = 70
     LABEL_DEFAULT_QR_SIZE = 10
     LABEL_DEFAULT_LINE_SPACING = 100
