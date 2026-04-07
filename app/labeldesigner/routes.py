@@ -24,13 +24,48 @@ def handle_value_error(e):
     return jsonify({"error": str(e)}), 400
 
 @bp.route('/')
-def index():
+def index_simple():
+    if current_app.config['LABEL_DEFAULT_SIZE'] not in current_app.config['LABEL_SHOW_ONLY'].split(','):
+        current_app.logger.warning("LABEL_DEFAULT_SIZE is not in LABEL_SHOW_ONLY, defaulting to the first available label size.")
+        current_app.config['LABEL_DEFAULT_SIZE'] = current_app.config['LABEL_SHOW_ONLY'].split(',')[0]
+        
     label_sizes = [
         (label.identifier, label.name, label.form_factor == FormFactor.ROUND_DIE_CUT, label.tape_size)
-        for label in ALL_LABELS
+        for label in ALL_LABELS if label.identifier in current_app.config['LABEL_SHOW_ONLY'].split(',')
     ]
     return render_template(
-        'labeldesigner.html',
+        'labeldesigner_simple.html',
+        fonts=FONTS.fontlist(),
+        label_sizes=label_sizes,
+        default_label_size=current_app.config['LABEL_DEFAULT_SIZE'],
+        default_font_size=current_app.config['LABEL_DEFAULT_FONT_SIZE'],
+        default_orientation=current_app.config['LABEL_DEFAULT_ORIENTATION'],
+        default_qr_size=current_app.config['LABEL_DEFAULT_QR_SIZE'],
+        default_image_mode=current_app.config['IMAGE_DEFAULT_MODE'],
+        default_bw_threshold=current_app.config['IMAGE_DEFAULT_BW_THRESHOLD'],
+        default_font_family=FONTS.get_default_font()[0],
+        default_font_style=FONTS.get_default_font()[1],
+        line_spacings=LINE_SPACINGS,
+        default_line_spacing=current_app.config['LABEL_DEFAULT_LINE_SPACING'],
+        default_dpi=DEFAULT_DPI,
+        default_margin_top=current_app.config['LABEL_DEFAULT_MARGIN_TOP'],
+        default_margin_bottom=current_app.config['LABEL_DEFAULT_MARGIN_BOTTOM'],
+        default_margin_left=current_app.config['LABEL_DEFAULT_MARGIN_LEFT'],
+        default_margin_right=current_app.config['LABEL_DEFAULT_MARGIN_RIGHT']
+    )
+
+@bp.route('/complex')
+def index_complex():
+    if current_app.config['LABEL_DEFAULT_SIZE'] not in current_app.config['LABEL_SHOW_ONLY'].split(','):
+        current_app.logger.warning("LABEL_DEFAULT_SIZE is not in LABEL_SHOW_ONLY, defaulting to the first available label size.")
+        current_app.config['LABEL_DEFAULT_SIZE'] = current_app.config['LABEL_SHOW_ONLY'].split(',')[0]
+
+    label_sizes = [
+        (label.identifier, label.name, label.form_factor == FormFactor.ROUND_DIE_CUT, label.tape_size)
+        for label in ALL_LABELS if label.identifier in current_app.config['LABEL_SHOW_ONLY'].split(',')
+    ]
+    return render_template(
+        'labeldesigner_complex.html',
         fonts=FONTS.fontlist(),
         label_sizes=label_sizes,
         default_label_size=current_app.config['LABEL_DEFAULT_SIZE'],
